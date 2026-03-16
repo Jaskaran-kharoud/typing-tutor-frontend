@@ -1,0 +1,263 @@
+/* ── Container ───────────────────────────────────────────────── */
+.vk-container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+/* ── Banner ──────────────────────────────────────────────────── */
+.vk-banner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.vk-hand {
+  flex: 0 0 auto;
+  padding: 6px 8px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.vk-divider {
+  width: 1px;
+  background: #e2e8f0;
+  align-self: stretch;
+  margin: 6px 0;
+}
+
+.vk-cards {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 4px;
+  flex-wrap: wrap;
+  min-height: 68px;
+}
+
+.vk-idle {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ── Info Cards ──────────────────────────────────────────────── */
+.vk-card {
+  background: #ffffff;
+  border: 0.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  gap: 2px;
+}
+
+.vk-card-val {
+  font-size: 22px;
+  font-weight: 500;
+  color: #1e293b;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+
+.vk-card-val.punjabi {
+  font-family: 'Raavi', 'Noto Sans Gurmukhi', sans-serif;
+  font-size: 24px;
+}
+
+.vk-card-sm {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  font-family: sans-serif;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.vk-card-lbl {
+  font-size: 9px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vk-card-eng-val {
+  font-size: 18px;
+  font-weight: 500;
+  color: #64748b;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+
+.vk-card-shift {
+  background: #fef9c3;
+  border-color: #fde047;
+}
+.vk-card-shift .vk-card-sm {
+  color: #92400e;
+}
+
+.vk-card-eng {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+/* ── Keyboard Shell ──────────────────────────────────────────── */
+.vk-keyboard {
+  padding: 8px 14px 14px;
+  background: #efefef;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.vk-row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+/* ── Key Base ────────────────────────────────────────────────── */
+.vk-key {
+  height: 48px;
+  min-width: 46px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.13);
+  background: #ffffff;
+  cursor: default;
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.08s;
+  overflow: hidden;
+}
+
+/* ── Punjabi key inner: shift top-left, EN top-right, main bottom-right ── */
+.vk-key-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 3px 4px 3px 4px;
+}
+
+.vk-key-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Shift char — top left, Gurmukhi, clearly visible */
+.vk-key-shift-char {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555555;
+  line-height: 1;
+  font-family: 'Raavi', 'Noto Sans Gurmukhi', sans-serif;
+}
+
+/* English key — top right, small grey */
+.vk-key-en-corner {
+  font-size: 9px;
+  font-weight: 400;
+  color: #94a3b8;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+/* Main Gurmukhi char — bottom right, large bold */
+.vk-key-main-char {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
+  align-self: flex-end;
+  font-family: 'Raavi', 'Noto Sans Gurmukhi', sans-serif;
+}
+
+/* English key label — centered */
+.vk-key-en {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 500;
+  color: #222222;
+  font-family: 'Courier New', monospace;
+}
+
+/* Special key label (Tab, Caps, Enter, etc.) */
+.vk-key-spec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 500;
+  color: #444444;
+  font-family: sans-serif;
+}
+
+/* ── Wide Keys ───────────────────────────────────────────────── */
+.key-backspace { min-width: 84px; }
+.key-tab       { min-width: 72px; }
+.key-capslock  { min-width: 82px; }
+.key-enter     { min-width: 94px; }
+.key-shift     { min-width: 108px; }
+.key-space     { min-width: 340px; }
+
+/* ── Finger Color Zones ──────────────────────────────────────── */
+.vk-key.lp { background: #fde8e8; }
+.vk-key.lr { background: #fef0de; }
+.vk-key.lm { background: #e8f5e8; }
+.vk-key.li { background: #e8effe; }
+.vk-key.ri { background: #fffbe0; }
+.vk-key.rm { background: #e8f5e8; }
+.vk-key.rr { background: #fef0de; }
+.vk-key.rp { background: #fde8e8; }
+.vk-key.th { background: #f0ecfe; }
+
+/* ── Active / Target States ──────────────────────────────────── */
+.vk-key-target {
+  box-shadow: 0 0 0 2px rgba(147,197,253,0.5);
+  border-color: #93c5fd;
+}
+
+.vk-key-active {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.3) !important;
+  transform: translateY(1px);
+  background: #dbeafe !important;
+}
+
+.vk-key-active .vk-key-main-char,
+.vk-key-active .vk-key-en,
+.vk-key-active .vk-key-spec {
+  color: #1e3a8a;
+}
+
+/* SHIFT_L highlighted when shift needed */
+.vk-key-shift-highlight {
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 2px rgba(124,58,237,0.3) !important;
+  transform: translateY(1px);
+  background: #ede9fe !important;
+}
+
+.vk-key-shift-highlight .vk-key-spec {
+  color: #4c1d95;
+}

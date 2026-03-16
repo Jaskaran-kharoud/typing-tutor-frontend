@@ -1,0 +1,440 @@
+/* =============================================
+   PRACTICE SESSION - CHUNK BASED LAYOUT
+   ============================================= */
+
+.ps-container {
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+}
+
+/* ── Header (full width at top) ── */
+.ps-header {
+  flex-shrink: 0;
+  background: white;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.ps-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.ps-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.ps-divider {
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+/* ── Main area (horizontal: progress | typing | stats) ── */
+.ps-main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Left Vertical Progress Bar ── */
+.ps-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding-top: 0.5rem;
+}
+
+.ps-progress-bar {
+  width: 10px;
+  flex: 1;
+  background: #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* fill from bottom up */
+}
+
+.ps-progress-fill {
+  width: 100%;
+  background: linear-gradient(180deg, #10b981, #059669);
+  border-radius: 5px;
+  transition: height 0.4s ease;
+}
+
+.ps-progress-label {
+  font-size: 0.65rem;
+  color: #6b7280;
+  font-weight: 700;
+  writing-mode: horizontal-tb;
+  text-align: center;
+}
+
+/* ── Typing Area (center) ── */
+.ps-typing-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Target Chunk Box (LARGE - shows multiple lines) ── */
+.ps-target {
+  flex-shrink: 0 !important;
+  background: white !important;
+  border-radius: 8px !important;
+  padding: 1.2rem 1.5rem !important;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  line-height: 2.2rem !important;
+  font-family: 'Courier New', monospace !important;
+  color: #1f2937 !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06) !important;
+  min-height: 280px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  display: block !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+/* Enter hint symbol */
+.enter-hint {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: #667eea;
+  font-size: 1.3rem;
+  font-weight: 700;
+  opacity: 0.85;
+  animation: enterPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes enterPulse {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50%       { opacity: 1;   transform: translateY(-2px); }
+}
+
+/* Chunk fade transitions */
+.chunk-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.chunk-fadeout {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  pointer-events: none;
+}
+
+.chunk-fadein {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: none;
+}
+
+/* ── Typing Input (LARGE to match target) ── */
+.ps-input {
+  flex: 1 !important;
+  min-height: 220px !important;
+  max-height: 280px !important;
+  padding: 1rem 1.3rem !important;
+  font-size: 1.2rem !important;
+  font-family: 'Courier New', monospace !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  resize: none !important;
+  line-height: 2rem !important;
+  transition: border-color 0.2s ease !important;
+  background: white !important;
+  color: #1f2937 !important;
+  overflow-y: auto !important;
+}
+
+.ps-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+/* ── Chunk error badge strip ── */
+.ps-chunk-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.ps-chunk-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+}
+
+.ps-chunk-badge.perfect {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.ps-chunk-badge.good {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.ps-chunk-badge.poor {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ── Buttons ── */
+.ps-buttons {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* Reuse Lesson button styles */
+.btn-control {
+  padding: 0.55rem 0.85rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 38px;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+  min-width: 80px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(16,185,129,0.4);
+}
+
+.btn-exit {
+  background: #f3f4f6;
+  color: #4b5563;
+  min-width: 60px;
+}
+
+.btn-exit:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* ── Right Stats Panel ── */
+.ps-stats-panel {
+  width: 160px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 0.6rem 0.5rem;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+}
+
+.ps-stat {
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+  border-radius: 6px;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ps-stat-label {
+  font-size: 0.62rem;
+  color: #6b7280;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.2rem;
+}
+
+.ps-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.timer-color    { color: #667eea; }
+.accuracy-color { color: #10b981; }
+.error-color    { color: #ef4444; }
+.wpm-color      { color: #667eea; }
+
+/* ── Results Modal (reuse Lesson styles) ── */
+.results-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.results-content {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: slideUp 0.35s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.results-content h2 {
+  text-align: center;
+  color: #1f2937;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.7rem;
+}
+
+.results-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-stat {
+  text-align: center;
+  padding: 1.1rem;
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+  border-radius: 10px;
+}
+
+.result-stat h3 {
+  font-size: 2rem;
+  color: #667eea;
+  margin: 0 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.result-stat p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+}
+
+.results-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 3px 10px rgba(102,126,234,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(102,126,234,0.4);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* ── Loading / Error ── */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  border-left: 4px solid #dc2626;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .ps-stats-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .ps-progress-wrap { display: none; }
+
+  .ps-target { font-size: 1.3rem; }
+
+  .ps-input { font-size: 1rem; }
+}
